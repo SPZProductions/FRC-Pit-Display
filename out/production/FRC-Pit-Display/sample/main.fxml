@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <Label fx:id="team_num" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="7.0" prefHeight="47.0" prefWidth="1345.0" text="Team Number">
+         <font>
+            <Font name="Arial" size="33.0" />
+         </font>
+      </Label>
+      <Label fx:id="team_name" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="41.0" prefHeight="47.0" prefWidth="1345.0" text="Team Name">
+         <font>
+            <Font name="Arial" size="49.0" />
+         </font>
+      </Label>
+      <Label fx:id="team_motto" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="84.0" prefHeight="47.0" prefWidth="1345.0" text="Team Motto">
+         <font>
+            <Font name="Arial" size="33.0" />
+         </font>
+      </Label>
+      <TableView fx:id="scores" layoutX="684.0" layoutY="158.0" prefHeight="600.0" prefWidth="658.0">
+        <columns>
+            <TableColumn fx:id="scores_mid" prefWidth="54.0" text="Match #" />
+          <TableColumn fx:id="scores_red" prefWidth="200.0" text="Red Alliance" />
+            <TableColumn fx:id="scores_blue" minWidth="0.0" prefWidth="200.0" text="Blue Alliance" />
+            <TableColumn fx:id="scores_wlt" minWidth="0.0" prefWidth="55.0" text="W/L/T" />
+            <TableColumn fx:id="scores_score" prefWidth="159.0" text="Score" />
+        </columns>
+      </TableView>
+      <Label fx:id="comp_name" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="111.0" prefHeight="47.0" prefWidth="1345.0" text="Competition Name">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
