@@ -37,5 +37,10 @@
             <Font name="Arial" size="24.0" />
          </font>
       </Label>
+      <Label fx:id="next_match" layoutX="14.0" layoutY="158.0" text="Next Match: QMN">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

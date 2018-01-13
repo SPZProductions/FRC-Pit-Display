@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import main.TBA;
+import models.other.Ranking;
 import models.simple.SMatch;
 import models.standard.Event;
 import models.standard.Team;
@@ -26,6 +27,7 @@ public class Controller implements Initializable {
     @FXML public Label team_name = new Label();
     @FXML public Label team_motto = new Label();
     @FXML public Label comp_name = new Label();
+    @FXML public Label next_match = new Label();
     @FXML public TableView<score_table> scores = new TableView();
     @FXML public ScrollBar scores_sb = (ScrollBar) scores.lookup(".scroll-bar:vertical");
     @FXML public TableColumn<score_table, String> scores_red = new TableColumn<>("Red Alliance");
@@ -86,6 +88,7 @@ public class Controller implements Initializable {
             Platform.exit();
         }
     }
+
     //Setup display useing team number we have
     private void setUpDisplay(){
         Team team = tba.getTeam(teamNum);
@@ -96,21 +99,26 @@ public class Controller implements Initializable {
         Event event = tba.getEvent(eventId);
         comp_name.setText("At " + event.getName() + " in " + event.getCity() + ", " + event.getStateProv());
 
-
-        for(SMatch m : tba.getTeamEventSMatches(teamNum, eventId)) {
+        SMatch[] matches = tba.getTeamEventSMatches(teamNum, eventId);
+        for(SMatch m : matches) {
             score_table st = new score_table();
             String matchResults = calculatWin(m);
             String mw = calculateMatchWinner(m);
             String color;
             boolean bold = false;
-            if (mw.equals("r")) {
-                color = "#d30000";
-            } else if (mw.equals("b")) {
-                color = "#0008ad";
-            } else if (mw.equals("t")) {
-                color = "##ad00a7";
-            } else {
-                color = "BLACK";
+            switch (mw) {
+                case "r":
+                    color = "#d30000";
+                    break;
+                case "b":
+                    color = "#0008ad";
+                    break;
+                case "t":
+                    color = "##ad00a7";
+                    break;
+                default:
+                    color = "BLACK";
+                    break;
             }
             if (matchResults.equals("w")) {
                 bold = true;
@@ -119,10 +127,12 @@ public class Controller implements Initializable {
             st.setBlueAlliance(m.getBlue().getTeamKeys()[0].substring(3) + ", " + m.getBlue().getTeamKeys()[1].substring(3) + ", " + m.getBlue().getTeamKeys()[2].substring(3));
             st.setWlt(matchResults.toUpperCase());
             st.setScore(calculateScore(m) + "," + color + "," + bold);
-            String compLevel = m.getCompLevel();
-            if(compLevel.equals("qm")){compLevel = "Q";}
-            st.setMatchNumber(compLevel.toUpperCase() + " " + m.getMatchNumber() + "");
+            st.setMatchNumber(formatMatchNumber(m));
             scores.getItems().add(st);
+
+            next_match.setText("Next Match: " + formatMatchNumber(calculateNextMatch(matches)));
+
+            //System.out.print();
         }
         customTableCellColor();
     }
@@ -276,5 +286,25 @@ public class Controller implements Initializable {
             };
         });
     }
+
+    private SMatch calculateNextMatch(SMatch[] ms){
+        for(SMatch m : ms){
+            if(m.getBlue().getScore() == -1 && m.getRed().getScore() == -1){
+                return m;
+            }
+        }
+        return null;
+    }
+
+    private String formatMatchNumber(SMatch m){
+        if(m != null){
+            String compLevel = m.getCompLevel();
+            if(compLevel.equals("qm")){compLevel = "Q";}
+            return compLevel.toUpperCase() + " " + m.getMatchNumber() + "";
+        }else {
+            return "None Scheduled";
+        }
+    }
+
 
 }
