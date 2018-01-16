@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <Label fx:id="team_num" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="7.0" prefHeight="47.0" prefWidth="1345.0" text="Team Number">
          <font>
@@ -37,9 +37,29 @@
             <Font name="Arial" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="next_match" layoutX="14.0" layoutY="158.0" text="Next Match: QMN">
+      <Label fx:id="next_match" layoutX="14.0" layoutY="222.0" text="Next Match: None">
          <font>
-            <Font name="System Bold" size="40.0" />
+            <Font name="Arial Bold" size="46.0" />
+         </font>
+      </Label>
+      <Label fx:id="rank" layoutX="15.0" layoutY="158.0" text="Current Rank: 00">
+         <font>
+            <Font name="Arial Bold" size="56.0" />
+         </font>
+      </Label>
+      <Label fx:id="wlt" layoutX="15.0" layoutY="361.0" text="W-L-T: 0-0-0">
+         <font>
+            <Font name="Arial Bold" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="average" layoutX="15.0" layoutY="269.0" text="Average Score: 0">
+         <font>
+            <Font name="Arial Bold" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="rp" layoutX="15.0" layoutY="316.0" text="Matches Played: 0">
+         <font>
+            <Font name="Arial Bold" size="40.0" />
          </font>
       </Label>
    </children>

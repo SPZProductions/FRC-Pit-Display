@@ -12,6 +12,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import main.TBA;
 import models.other.Ranking;
+import models.other.WLTRecord;
+import models.other.teams.status.TeamEventStatus;
 import models.simple.SMatch;
 import models.standard.Event;
 import models.standard.Team;
@@ -28,6 +30,10 @@ public class Controller implements Initializable {
     @FXML public Label team_motto = new Label();
     @FXML public Label comp_name = new Label();
     @FXML public Label next_match = new Label();
+    @FXML public Label rank = new Label();
+    @FXML public Label wlt = new Label();
+    @FXML public Label average = new Label();
+    @FXML public Label rp = new Label();
     @FXML public TableView<score_table> scores = new TableView();
     @FXML public ScrollBar scores_sb = (ScrollBar) scores.lookup(".scroll-bar:vertical");
     @FXML public TableColumn<score_table, String> scores_red = new TableColumn<>("Red Alliance");
@@ -38,7 +44,7 @@ public class Controller implements Initializable {
 
 
     private int teamNum = 1322;//Store Team Number
-    private String eventId = "2017miket";//Store event id
+    private String eventId = "2014miket";//Store event id
     private TBA tba = new TBA();// Create TBA object
 
 
@@ -56,8 +62,6 @@ public class Controller implements Initializable {
         //Test API Key before application start
         testKey();
         //TODO: REMOVE
-        setUpDisplay();
-        setUpDisplay();
         setUpDisplay();
 
     }
@@ -130,9 +134,14 @@ public class Controller implements Initializable {
             st.setMatchNumber(formatMatchNumber(m));
             scores.getItems().add(st);
 
+            TeamEventStatus tes = tba.getTeamEventStatus(teamNum, eventId);
             next_match.setText("Next Match: " + formatMatchNumber(calculateNextMatch(matches)));
-
-            //System.out.print();
+            rank.setText("Current Rank: " + tes.getQual().getRanking().getRank());
+            WLTRecord qual = tes.getQual().getRanking().getQualificationsRecord();
+            WLTRecord elim = tes.getPlayoff().getRecord();
+            wlt.setText(getWLT(qual, elim));
+            average.setText("Average Score: " + getAverageMatchScore(matches));
+            rp.setText("Matches Played: " + tes.getQual().getRanking().getMatchesPlayed());
         }
         customTableCellColor();
     }
@@ -306,5 +315,27 @@ public class Controller implements Initializable {
         }
     }
 
+    private String getWLT(WLTRecord qual, WLTRecord elim){
+        Long w = qual.getWins() + elim.getWins();
+        Long l = qual.getLosses() + elim.getLosses();
+        Long t = qual.getTies() + elim.getTies();
+        return "W-L-T: " + w + "-" + l + "-" + t;
+    }
+
+    private Long getAverageMatchScore(SMatch[] matches){
+        int i = 0;
+        Long total = new Long("0");
+        for(SMatch m : matches) {
+            if (m.getBlue().getTeamKeys()[0].equals("frc" + teamNum) || m.getBlue().getTeamKeys()[1].equals("frc" + teamNum) || m.getBlue().getTeamKeys()[2].equals("frc" + teamNum) && m.getBlue().getScore() != -1) {
+                total = total + m.getBlue().getScore();
+                i++;
+            } else if (m.getRed().getTeamKeys()[0].equals("frc" + teamNum) || m.getRed().getTeamKeys()[1].equals("frc" + teamNum) || m.getRed().getTeamKeys()[2].equals("frc" + teamNum) && m.getRed().getScore() != -1) {
+                total = total + m.getRed().getScore();
+                i++;
+            }
+        }
+        total = total/i;
+        return total;
+    }
 
 }

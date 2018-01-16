@@ -20,10 +20,10 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/TBA-API-V3-master/out/artifacts/TBA_API_V3_jar/TBA-API-V3-Fixed-Match.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/TBA-API-V3-M-R-FFF.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
