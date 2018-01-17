@@ -3,13 +3,19 @@ package sample;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import main.TBA;
 import models.other.Ranking;
 import models.other.WLTRecord;
@@ -18,9 +24,13 @@ import models.simple.SMatch;
 import models.standard.Event;
 import models.standard.Team;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller implements Initializable {
 
@@ -43,9 +53,10 @@ public class Controller implements Initializable {
     @FXML public TableColumn<score_table, String> scores_mid = new TableColumn<>("Match #");
 
 
-    private int teamNum = 1322;//Store Team Number
-    private String eventId = "2014miket";//Store event id
+    public int teamNum = 0;//Store Team Number
+    public String eventId = "0";//Store event id
     private TBA tba = new TBA();// Create TBA object
+    private Setup setup;
 
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -61,9 +72,6 @@ public class Controller implements Initializable {
 
         //Test API Key before application start
         testKey();
-        //TODO: REMOVE
-        setUpDisplay();
-
     }
 
     //Test API Key
@@ -94,7 +102,7 @@ public class Controller implements Initializable {
     }
 
     //Setup display useing team number we have
-    private void setUpDisplay(){
+    public void setUpDisplay(){
         Team team = tba.getTeam(teamNum);
         team_name.setText(team.getNickname());
         team_motto.setText(team.getMotto());
@@ -336,6 +344,25 @@ public class Controller implements Initializable {
         }
         total = total/i;
         return total;
+    }
+
+    public void openSetup(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("setup.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            setup = (Setup) fxmlLoader.getController();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Log");
+            //stage.getIcons().add(new Image(getClass().getResourceAsStream("images/app_ico.png")));
+            stage.setScene(new Scene(root1));
+            stage.show();
+
+            //((Node)(event.getSource())).getScene().getWindow().hide();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+        }
     }
 
 }

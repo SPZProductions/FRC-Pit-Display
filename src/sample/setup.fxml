@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Setup">
+   <children>
+      <Button fx:id="tncb" layoutX="174.0" layoutY="37.0" mnemonicParsing="false" onAction="#checkTeamNumber" text="Check" />
+      <TextField fx:id="tn_box" layoutX="14.0" layoutY="37.0" />
+      <TextField fx:id="eid_box" layoutX="14.0" layoutY="80.0" />
+      <Label layoutX="14.0" layoutY="20.0" text="Team Number" />
+      <Label fx:id="tba_id" layoutX="14.0" layoutY="62.0" text="TBA Event ID" />
+      <Button fx:id="eidcb" layoutX="174.0" layoutY="80.0" mnemonicParsing="false" onAction="#checkEventID" text="Check" />
+      <Label fx:id="tncl" layoutX="105.0" layoutY="20.0" text="Click Check" />
+      <Label fx:id="eidcl" layoutX="105.0" layoutY="62.0" text="Click Check" />
+      <Button fx:id="go" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#go" text="Go!" />
+   </children>
+</AnchorPane>

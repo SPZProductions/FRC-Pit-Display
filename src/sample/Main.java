@@ -24,6 +24,7 @@ public class Main extends Application {
 
             Main.currentStage = primaryStage;
             Main.controller = (Controller) loader.getController();
+            controller.openSetup();
         }catch(Exception e){
             e.printStackTrace();
         }
